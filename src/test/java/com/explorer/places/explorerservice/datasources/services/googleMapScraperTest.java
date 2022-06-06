@@ -1,8 +1,6 @@
-package com.explorer.places.explorerservice.scraper.services;
+package com.explorer.places.explorerservice.datasources.services;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class googleMapScraperTest {
 
