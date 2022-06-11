@@ -1,7 +1,7 @@
 package com.explorer.places.explorerservice.datasources.googlemap;
 
-import com.explorer.places.explorerservice.datasources.utils.ScraperUtils;
 import com.explorer.places.explorerservice.models.DataModel;
+import com.explorer.places.explorerservice.utils.ScraperUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -37,7 +37,7 @@ public class GoogleMapScraper {
             // Click Next button, load next button while scraping.
             try {
                 WebElement nextPage = ((ChromeDriver) driver).findElementByCssSelector("button[aria-label=' Next page ']");
-                while (result.size() < 61 && nextPage != null && nextPage.isEnabled()) {
+                while (result.size() < 31 && nextPage != null && nextPage.isEnabled()) {
                     nextPage.click();
                     result = iterateElements(driver, result);
                 }

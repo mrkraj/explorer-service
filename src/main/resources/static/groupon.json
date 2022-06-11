@@ -1,0 +1,106 @@
+{
+  "id": "spring-beauty-spa-5",
+  "dealUrl": "http://tracking.groupon.com/r?tsToken=US_AFF_0_6162194_212556_0&url=https%3A%2F%2Fwww.groupon.com%2Fdeals%2Fspring-beauty-spa-5%3Fz%3Dskip%26utm_medium%3Dafl%26utm_campaign%3D6162194%26mediaId%3D212556%26utm_source%3DGPN",
+  "title": "Waxing Session at Spring Beauty Spa (Up to 64% Off). 16 Options Available.",
+  "announcementTitle": "Up to 64% Off Waxing Session at Spring Beauty Spa",
+  "mediumImageUrl": "https://img.grouponcdn.com/bynder/34FPCLywc76HSQ4gnWqrjDXmT8SB/34-2048x1229/v1/t100x100.jpg",
+  "status": "open",
+  "type": "groupon",
+  "endAt": "2046-01-24T04:59:59Z",
+  "startAt": "2021-09-20T04:00:00Z",
+  "tippedAt": "2021-09-19T04:00:00Z",
+  "isSoldOut": false,
+  "isTipped": true,
+  "redemptionLocation": "General Greene Village",
+  "tags": [
+    {
+      "name": "Hair Removal & Epilation",
+      "uuid": "f1a78b47-9d95-4b6d-9593-bd563f9d7cee"
+    },
+    {
+      "name": "Waxing",
+      "uuid": "766479bf-0dae-453b-9f6e-55b72bea2ae2"
+    }
+  ],
+  "merchant": {
+    "id": "springfield-day-spa-2",
+    "uuid": "a8332a4d-2862-4a2e-ab7a-95da8c32fa20",
+    "name": "Spring Beauty Spa",
+    "websiteUrl": "http://www.springbeautyspas.com",
+    "recommendations": [
+      {
+        "rating": 4.57,
+        "totalMessage": "978",
+        "percentMessage": "93",
+        "total": 978,
+        "percent": 93
+      }
+    ]
+  },
+  "options": [
+    {
+      "buyUrl": "https://www.groupon.com/deals/spring-beauty-spa-5/confirmation?pledge_id=95e1baf4-0cdb-4d69-a42b-66d0cd616618",
+      "discount": {
+        "amount": 2380,
+        "currencyCode": "USD",
+        "formattedAmount": "$23.80",
+        "currencyExponent": 2
+      },
+      "discountPercent": 61,
+      "endAt": "2046-01-24T04:59:59Z",
+      "expiresAt": "2022-10-01T00:00:00Z",
+      "expiresInDays": 120,
+      "externalUrl": null,
+      "isLimitedQuantity": true,
+      "isSoldOut": false,
+      "maximumPurchaseQuantity": 30,
+      "minimumPurchaseQuantity": 1,
+      "price": {
+        "amount": 1520,
+        "currencyCode": "USD",
+        "formattedAmount": "$15.20",
+        "currencyExponent": 2
+      },
+      "status": "open",
+      "title": "Bikini Waxing Session; New Clients Only",
+      "value": {
+        "amount": 3900,
+        "currencyCode": "USD",
+        "formattedAmount": "$39.00",
+        "currencyExponent": 2
+      },
+      "regularPrice": {
+        "amount": 1900,
+        "currencyCode": "USD",
+        "formattedAmount": "$19.00",
+        "currencyExponent": 2
+      },
+      "pricingMetadata": {
+        "programId": "c1719b71-125c-4896-b6f9-175aee8e43ca",
+        "offerType": "SALE",
+        "offerLabel": "Extra $3.80 Off Ends 6/3",
+        "offerLabelDescriptive": "Sale Ends 6/3",
+        "timerLabel": "Sale ends in:",
+        "offerBeginsAt": "2022-06-02T04:00:00Z",
+        "offerEndsAt": "2022-06-04T03:59:00Z"
+      },
+      "redemptionLocations": [
+        {
+          "name": "General Greene Village",
+          "streetAddress1": "203 Morris Avenue",
+          "streetAddress2": null,
+          "state": "NJ",
+          "city": "Springfield Township",
+          "neighborhood": "General Greene Village",
+          "postalCode": "07081",
+          "country": "US",
+          "phoneNumber": "+19733792677",
+          "id": 4856572,
+          "uuid": "6cd501a5-6abd-bfdf-8e3a-0155ff4f4059",
+          "lat": 40.7108845,
+          "lng": -74.3099167
+        }
+      ]
+    }
+  ]
+}

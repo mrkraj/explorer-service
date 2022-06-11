@@ -28,4 +28,11 @@ public class ExploreAll {
         return ExploreAllMapper.mapGroupOnData(lat, lng, category, range);
     }
 
+    @GetMapping("/data/ticketMasterApi")
+    Map<String, DataModel> ticketMasterApi(@RequestParam String lat,
+                                           @RequestParam String lng,
+                                           @RequestParam String category,
+                                           @RequestParam String range) {
+        return ExploreAllMapper.getTicketMasterData(lat, lng, range);
+    }
 }

@@ -1,11 +1,15 @@
 package com.explorer.places.explorerservice.models;
 
+import com.explorer.places.explorerservice.utils.CommonUtils;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class DataModel {
 
-    private final String title;  //merchant/name
+    private final String title;
     private final String address;
     private final String imageUrl;
     private final String[] category;
@@ -19,18 +23,22 @@ public class DataModel {
     private final String longitude;
     private final String url;
 
-    private final String source; //type
-    private final String offerTitle; //options/title
+    private final String source;
+    private final String offerTitle;
     private final String value;
     private final String price;
     private final String discountPrice;
     private final String discount;
 
+    private final String type;
+    private final LocalDate date;
+    private final String time;
+
 
     public DataModel(String title, String address, String imageUrl, String[] category, String reviewStars, String noOfReviews, String openState, String closeState,
                      String description, String priceRange, String latitude, String longitude, String url,
                      String source, String offerTitle, String value, String price,
-                     String discountPrice, String discount) {
+                     String discountPrice, String discount, String type, String date, String time) {
         this.title = title;
         this.address = address;
         this.imageUrl = imageUrl;
@@ -50,9 +58,14 @@ public class DataModel {
         this.price = price;
         this.discountPrice = discountPrice;
         this.discount = discount;
+        this.type = type;
+        this.date = LocalDate.parse(date);
+        this.time = time;
     }
 
     public String getTitle() {
         return title;
     }
+    public LocalDate getDate() {return date;}
+
 }

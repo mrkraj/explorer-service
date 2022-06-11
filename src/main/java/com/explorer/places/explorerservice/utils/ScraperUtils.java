@@ -1,4 +1,4 @@
-package com.explorer.places.explorerservice.datasources.utils;
+package com.explorer.places.explorerservice.utils;
 
 import com.explorer.places.explorerservice.models.DataModel;
 import org.apache.commons.lang.StringUtils;
@@ -76,8 +76,8 @@ public class ScraperUtils {
                     if (title != null && address != null && category != null && image != null) {
                         entries = new DataModel(title, address, image, category, review, noOfReview, open,
                                 closing, description, priceRange, latitude, longitude, url,
-                                null, null, null, null, null,
-                                null);
+                                "google-map", null, null, null, null,
+                                null, null, null, null);
                     }
 
                 }

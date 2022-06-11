@@ -1,0 +1,242 @@
+{
+  "name": "Wanda Sykes",
+  "type": "event",
+  "id": "Z7r9jZ1Ad8k83",
+  "test": false,
+  "url": "https://www.ticketmaster.com/event/Z7r9jZ1Ad8k83",
+  "locale": "en-us",
+  "images": [],
+  "distance": 1.52,
+  "units": "MILES",
+  "sales": {
+    "public": {
+      "startDateTime": "1900-01-01T06:00:00Z",
+      "startTBD": false,
+      "startTBA": false,
+      "endDateTime": "2022-06-12T00:00:00Z"
+    }
+  },
+  "dates": {
+    "start": {
+      "localDate": "2022-06-11",
+      "localTime": "20:00:00",
+      "dateTime": "2022-06-12T00:00:00Z",
+      "dateTBD": false,
+      "dateTBA": false,
+      "timeTBA": false,
+      "noSpecificTime": false
+    },
+    "status": {
+      "code": "onsale"
+    },
+    "spanMultipleDays": false
+  },
+  "classifications": [
+    {
+      "primary": true,
+      "segment": {
+        "id": "KZFzniwnSyZfZ7v7na",
+        "name": "Arts & Theatre"
+      },
+      "family": false
+    }
+  ],
+  "outlets": [
+    {
+      "url": "https://www.mayoarts.org/",
+      "type": "venueBoxOffice"
+    },
+    {
+      "url": "https://www.ticketmaster.com/wanda-sykes-morristown-new-jersey-06-11-2022/event/Zu0FM1R0e5taYa7",
+      "type": "tmMarketPlace"
+    }
+  ],
+  "seatmap": {
+    "staticUrl": "https://content.resale.ticketmaster.com/maps/376-1-1-main.gif"
+  },
+  "_links": {
+    "self": {
+      "href": "/discovery/v2/events/Z7r9jZ1Ad8k83?locale=en-us"
+    },
+    "attractions": [
+      {
+        "href": "/discovery/v2/attractions/K8vZ9171NwV?locale=en-us"
+      }
+    ],
+    "venues": [
+      {
+        "href": "/discovery/v2/venues/Z6r9jZ7F6e?locale=en-us"
+      }
+    ]
+  },
+  "_embedded": {
+    "venues": [
+      {
+        "name": "Mayo Performing Arts Center",
+        "type": "venue",
+        "id": "Z6r9jZ7F6e",
+        "test": false,
+        "locale": "en-us",
+        "distance": 1.52,
+        "units": "MILES",
+        "postalCode": "07960",
+        "timezone": "America/New_York",
+        "city": {
+          "name": "Morristown"
+        },
+        "state": {
+          "name": "New Jersey",
+          "stateCode": "NJ"
+        },
+        "country": {
+          "name": "United States Of America",
+          "countryCode": "US"
+        },
+        "address": {
+          "line1": "100 South St."
+        },
+        "location": {
+          "longitude": "-74.499199",
+          "latitude": "40.785702"
+        },
+        "dmas": [
+          {
+            "id": 422
+          },
+          {
+            "id": 802
+          }
+        ],
+        "upcomingEvents": {
+          "_total": 27,
+          "tmr": 27,
+          "_filtered": 0
+        },
+        "_links": {
+          "self": {
+            "href": "/discovery/v2/venues/Z6r9jZ7F6e?locale=en-us"
+          }
+        }
+      }
+    ],
+    "attractions": [
+      {
+        "name": "Wanda Sykes",
+        "type": "attraction",
+        "id": "K8vZ9171NwV",
+        "test": false,
+        "url": "https://www.ticketmaster.com/wanda-sykes-tickets/artist/868871",
+        "locale": "en-us",
+        "images": [
+          {
+            "ratio": "16_9",
+            "url": "https://s1.ticketm.net/dam/a/5d8/c323dfa5-5cd8-4948-bbaa-2adc7afa05d8_86111_EVENT_DETAIL_PAGE_16_9.jpg",
+            "width": 205,
+            "height": 115,
+            "fallback": false
+          },
+          {
+            "ratio": "3_2",
+            "url": "https://s1.ticketm.net/dam/a/5d8/c323dfa5-5cd8-4948-bbaa-2adc7afa05d8_86111_RETINA_PORTRAIT_3_2.jpg",
+            "width": 640,
+            "height": 427,
+            "fallback": false
+          },
+          {
+            "ratio": "3_2",
+            "url": "https://s1.ticketm.net/dam/a/5d8/c323dfa5-5cd8-4948-bbaa-2adc7afa05d8_86111_ARTIST_PAGE_3_2.jpg",
+            "width": 305,
+            "height": 203,
+            "fallback": false
+          },
+          {
+            "ratio": "16_9",
+            "url": "https://s1.ticketm.net/dam/a/5d8/c323dfa5-5cd8-4948-bbaa-2adc7afa05d8_86111_RECOMENDATION_16_9.jpg",
+            "width": 100,
+            "height": 56,
+            "fallback": false
+          },
+          {
+            "ratio": "16_9",
+            "url": "https://s1.ticketm.net/dam/a/5d8/c323dfa5-5cd8-4948-bbaa-2adc7afa05d8_86111_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+            "width": 2048,
+            "height": 1152,
+            "fallback": false
+          },
+          {
+            "ratio": "3_2",
+            "url": "https://s1.ticketm.net/dam/a/5d8/c323dfa5-5cd8-4948-bbaa-2adc7afa05d8_86111_TABLET_LANDSCAPE_3_2.jpg",
+            "width": 1024,
+            "height": 683,
+            "fallback": false
+          },
+          {
+            "ratio": "16_9",
+            "url": "https://s1.ticketm.net/dam/a/5d8/c323dfa5-5cd8-4948-bbaa-2adc7afa05d8_86111_TABLET_LANDSCAPE_16_9.jpg",
+            "width": 1024,
+            "height": 576,
+            "fallback": false
+          },
+          {
+            "ratio": "16_9",
+            "url": "https://s1.ticketm.net/dam/a/5d8/c323dfa5-5cd8-4948-bbaa-2adc7afa05d8_86111_RETINA_LANDSCAPE_16_9.jpg",
+            "width": 1136,
+            "height": 639,
+            "fallback": false
+          },
+          {
+            "ratio": "16_9",
+            "url": "https://s1.ticketm.net/dam/a/5d8/c323dfa5-5cd8-4948-bbaa-2adc7afa05d8_86111_RETINA_PORTRAIT_16_9.jpg",
+            "width": 640,
+            "height": 360,
+            "fallback": false
+          },
+          {
+            "ratio": "4_3",
+            "url": "https://s1.ticketm.net/dam/a/5d8/c323dfa5-5cd8-4948-bbaa-2adc7afa05d8_86111_CUSTOM.jpg",
+            "width": 305,
+            "height": 225,
+            "fallback": false
+          }
+        ],
+        "classifications": [
+          {
+            "primary": true,
+            "segment": {
+              "id": "KZFzniwnSyZfZ7v7na",
+              "name": "Arts & Theatre"
+            },
+            "genre": {
+              "id": "KnvZfZ7vAe1",
+              "name": "Comedy"
+            },
+            "subGenre": {
+              "id": "KZazBEonSMnZfZ7vF17",
+              "name": "Comedy"
+            },
+            "type": {
+              "id": "KZAyXgnZfZ7v7nI",
+              "name": "Undefined"
+            },
+            "subType": {
+              "id": "KZFzBErXgnZfZ7v7lJ",
+              "name": "Undefined"
+            },
+            "family": false
+          }
+        ],
+        "upcomingEvents": {
+          "_total": 17,
+          "tmr": 4,
+          "ticketmaster": 13,
+          "_filtered": 0
+        },
+        "_links": {
+          "self": {
+            "href": "/discovery/v2/attractions/K8vZ9171NwV?locale=en-us"
+          }
+        }
+      }
+    ]
+  }
+}
