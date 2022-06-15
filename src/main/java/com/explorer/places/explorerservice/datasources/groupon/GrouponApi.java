@@ -23,7 +23,9 @@ public class GrouponApi {
         JSONArray deals = (JSONArray) jsonData.get("deals");
         for (int i = 0; i < deals.length(); i++) {
             DataModel tempData = getGrouponDataModel(deals.getJSONObject(i));
-            result.put(tempData.getTitle(), tempData);
+            if (tempData != null) {
+                result.put(tempData.getTitle(), tempData);
+            }
         }
         return result;
     }
@@ -77,8 +79,10 @@ public class GrouponApi {
         category = categories.toArray(new String[categories.size()]);
 
 
-        entries = new DataModel(title, address, image, category, review, noOfReview, open, null, description,
-                null, latitude, longitude, url, source, offerTitle, value, price, discountPrice, discount, null, null, null);
+        if (latitude != null) {
+            entries = new DataModel(title, address, image, category, review, noOfReview, open, null, description,
+                    null, latitude, longitude, url, source, offerTitle, value, price, discountPrice, discount, null, null, null);
+        }
 
         return entries;
     }

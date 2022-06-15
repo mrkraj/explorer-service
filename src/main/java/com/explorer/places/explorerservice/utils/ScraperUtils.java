@@ -17,18 +17,19 @@ public class ScraperUtils {
 
 
     public static DataModel scrapePlaces(WebElement web) {
+        Long startTime = System.currentTimeMillis();
+
         DataModel entries = null;
-        String title = null, description = null, priceRange = null, address = null, review = null,
-                noOfReview = null, open = null, closing = null, image = null, latitude = null, longitude = null, url = null;
+        String description = null, address = null, open = null, closing = null;
         String[] category = null;
 
         try {
-            title = web.findElement(By.className("qBF1Pd")) != null ? web.findElement(By.className("qBF1Pd")).getText() : null;
-            review = web.findElement(By.className("MW4etd")) != null ? web.findElement(By.className("MW4etd")).getText() : null;
-            noOfReview = web.findElement(By.className("UY7F9")) != null ? web.findElement(By.className("UY7F9")).getText() : null;
-            image = web.findElement(By.className("FQ2IWe")).findElement(By.tagName("img")).getAttribute("src");
+            String title = web.findElement(By.className("qBF1Pd")) != null ? web.findElement(By.className("qBF1Pd")).getText() : null;
+            String review = web.findElement(By.className("MW4etd")) != null ? web.findElement(By.className("MW4etd")).getText() : null;
+            String noOfReview = web.findElement(By.className("UY7F9")) != null ? web.findElement(By.className("UY7F9")).getText() : null;
+            String image = web.findElement(By.className("FQ2IWe")).findElement(By.tagName("img")).getAttribute("src");
             Optional<WebElement> priceElement = web.findElements(By.cssSelector("span[aria-label]")).stream().filter(entry -> entry.getAttribute("aria-label").contains("Price:")).findFirst();
-            priceRange = priceElement.isPresent() ? priceElement.get().getText() : null;
+            String priceRange = priceElement.isPresent() ? priceElement.get().getText() : null;
 
 
             Optional<WebElement> optionalDetails = web.findElements(By.className("W4Efsd")).stream().filter(entry -> entry.getText().contains("\n")).findFirst();
@@ -64,22 +65,18 @@ public class ScraperUtils {
 
                     //Extract lat/long from achortag.
                     WebElement goToElement = web.findElement(By.tagName("a"));
-                    url = goToElement != null ? goToElement.getAttribute("href") : null;
+                    String url = goToElement != null ? goToElement.getAttribute("href") : null;
 
                     String[] latLong = scrapeLatLong(web, url);
                     if (latLong != null) {
-                        latitude = latLong[0];
-                        longitude = latLong[1];
+                        //Build Place Data Model.
+                        if (title != null && address != null && category != null && image != null) {
+                            entries = new DataModel(title, address, image, category, review, noOfReview, open,
+                                    closing, description, priceRange, latLong[0], latLong[1], url,
+                                    "google-map", null, null, null, null,
+                                    null, null, null, null);
+                        }
                     }
-
-                    //Build Place Data Model.
-                    if (title != null && address != null && category != null && image != null) {
-                        entries = new DataModel(title, address, image, category, review, noOfReview, open,
-                                closing, description, priceRange, latitude, longitude, url,
-                                "google-map", null, null, null, null,
-                                null, null, null, null);
-                    }
-
                 }
             } else {
                 logger.debug("Detail section with class Name 'W4Efsd' Notexist/Changed. !!!CRITICAL!!!");
@@ -87,6 +84,7 @@ public class ScraperUtils {
         } catch (Exception e) {
             logger.error("Exception at scraping the Google map w/ error: {}", e.getMessage());
         }
+        logger.info("Time for each google item Scraping {}", System.currentTimeMillis() - startTime);
         return entries;
     }
 
@@ -114,7 +112,7 @@ public class ScraperUtils {
         if (!StringUtils.isEmpty(href)) {
             String latLongString = href.substring(href.indexOf("!3d") + 3, href.indexOf("!16"));
             if (!StringUtils.isEmpty(latLongString)) {
-                return latLongString.split("!4d-");
+                return latLongString.split("!4d");
             }
         }
         return null;

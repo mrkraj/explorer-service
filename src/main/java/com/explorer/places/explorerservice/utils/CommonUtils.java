@@ -1,6 +1,6 @@
 package com.explorer.places.explorerservice.utils;
 
-import org.apache.commons.lang.StringUtils;
+import com.explorer.places.explorerservice.models.DataModel;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +10,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.text.DecimalFormat;
+import java.util.Map;
 
 public class CommonUtils {
 
@@ -39,15 +36,24 @@ public class CommonUtils {
         return json;
     }
 
-    public static Date convertStringToDate(String date){
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        if (!StringUtils.isEmpty(date)){
-            try {
-                return formatter.parse(date);
-            }catch (Exception e){
-                logger.error("Exception at parsing the Date from string - {}, w/ error: {}", date, e.getMessage());
-            }
-        }
-        return null;
+    public static void calculateDistance(double lat1, double lng1, Map<String, DataModel> items) {
+        double earthRadius = 3958.75; // miles (or 6371.0 kilometers)
+        DecimalFormat df = new DecimalFormat("#.#");
+
+        items.entrySet().stream().forEach(e -> {
+            double lat2 = e.getValue().getLatitude();
+            double lng2 = e.getValue().getLongitude();
+
+            double dLat = Math.toRadians(lat2 - lat1);
+            double dLng = Math.toRadians(lng2 - lng1);
+            double sindLat = Math.sin(dLat / 2);
+            double sindLng = Math.sin(dLng / 2);
+            double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                    * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(e.getValue().getLatitude()));
+            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            double dist = earthRadius * c;
+            dist = dist > 0.1 ? dist : 0.1;
+            e.getValue().setDistance(Double.parseDouble(df.format(dist)));
+        });
     }
 }

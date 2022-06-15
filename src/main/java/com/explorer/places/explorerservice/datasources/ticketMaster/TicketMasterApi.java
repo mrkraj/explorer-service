@@ -7,7 +7,10 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TicketMasterApi {
 
@@ -20,11 +23,11 @@ public class TicketMasterApi {
         JSONArray events = jsonData.has("_embedded") ? jsonData.getJSONObject("_embedded").getJSONArray("events") : new JSONArray();
         for (int i = 0; i < events.length(); i++) {
             DataModel tempData = getTicketMasterDataModel(events.getJSONObject(i));
-            if (!result.containsKey(tempData.getTitle())){
+            if (tempData != null && !result.containsKey(tempData.getTitle())) {
                 result.put(tempData.getTitle(), tempData);
             }
-            if(result.containsKey(tempData.getTitle()) && tempData.getDate() != null &&
-                    result.get(tempData.getTitle()).getDate().compareTo(tempData.getDate()) > 0 ){
+            if (tempData != null && result.containsKey(tempData.getTitle()) && tempData.getDate() != null &&
+                    result.get(tempData.getTitle()).getDate().compareTo(tempData.getDate()) > 0) {
                 result.put(tempData.getTitle(), tempData);
             }
         }
@@ -40,7 +43,7 @@ public class TicketMasterApi {
 
         JSONObject venue = data.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0);
         JSONObject tags = data.has("classifications") ? data.getJSONArray("classifications").getJSONObject(0) : null;
-        JSONObject startDate = data.has("dates") ?data.getJSONObject("dates").getJSONObject("start") : null;
+        JSONObject startDate = data.has("dates") ? data.getJSONObject("dates").getJSONObject("start") : null;
         JSONObject priceData = data.has("priceRanges") ? data.getJSONArray("priceRanges").getJSONObject(0) : null;
 
         title = data.getString("name");
@@ -66,24 +69,36 @@ public class TicketMasterApi {
             time = startDate.has("localTime") ? startDate.getString("localTime") : null;
         }
 
-        if (priceData != null){
+        if (priceData != null) {
             price = priceData.get("min").toString();
         }
 
-        entries = new DataModel(title, address, image, getTicketMasterCategory(tags), review, noOfReview, open, null, description,
-                null, latitude, longitude, url, source, offerTitle, value, price, discountPrice, discount, type, date, time);
+        if (latitude != null) {
+            entries = new DataModel(title, address, image, getTicketMasterCategory(tags), review, noOfReview, open, null, description,
+                    null, latitude, longitude, url, source, offerTitle, value, price, discountPrice, discount, type, date, time);
+        }
 
         return entries;
     }
 
-    public static String[] getTicketMasterCategory(JSONObject tags){
+    public static String[] getTicketMasterCategory(JSONObject tags) {
         List<String> categories = new ArrayList<>();
-        if (tags != null){
-            if(tags.has("segment")){ categories.add(tags.getJSONObject("segment").getString("name"));}
-            if(tags.has("genre")){ categories.add(tags.getJSONObject("genre").getString("name"));}
-            if(tags.has("subGenre")){ categories.add(tags.getJSONObject("subGenre").getString("name"));}
-            if(tags.has("type") && tags.getJSONObject("type").getString("name") != "Undefined"){ categories.add(tags.getJSONObject("type").getString("name"));}
-            if(tags.has("subType") && tags.getJSONObject("subType").getString("name") != "Undefined"){ categories.add(tags.getJSONObject("subType").getString("name"));}
+        if (tags != null) {
+            if (tags.has("segment")) {
+                categories.add(tags.getJSONObject("segment").getString("name"));
+            }
+            if (tags.has("genre")) {
+                categories.add(tags.getJSONObject("genre").getString("name"));
+            }
+            if (tags.has("subGenre")) {
+                categories.add(tags.getJSONObject("subGenre").getString("name"));
+            }
+            if (tags.has("type") && tags.getJSONObject("type").getString("name") != "Undefined") {
+                categories.add(tags.getJSONObject("type").getString("name"));
+            }
+            if (tags.has("subType") && tags.getJSONObject("subType").getString("name") != "Undefined") {
+                categories.add(tags.getJSONObject("subType").getString("name"));
+            }
         }
         return categories.toArray(new String[categories.size()]);
     }

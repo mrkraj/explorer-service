@@ -5,6 +5,10 @@ import com.explorer.places.explorerservice.datasources.groupon.GrouponApi;
 import com.explorer.places.explorerservice.datasources.ticketMaster.TicketMasterApi;
 import com.explorer.places.explorerservice.models.DataModel;
 import com.explorer.places.explorerservice.utils.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.text.SimpleDateFormat;
@@ -12,17 +16,33 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
+@Service
 public class ExploreAllMapper {
+    private final Logger logger = LoggerFactory.getLogger(ExploreAllMapper.class);
 
-    public static Map<String, DataModel> mapAll(String lat, String lng, String category, String range) {
-        Map<String, DataModel> result = GoogleMapScraper.googlePlaceData();
+    @Async
+    public CompletableFuture<Map<String, DataModel>> getGoogleMapData(String lat, String lng, String category, String range) {
+        logger.info("started googlemap:-", System.currentTimeMillis());
+        String url = "";
+        if (category.contains("things-to-do")) {
+            url = "https://www.google.com/maps/search/things+to+do+near+me+within+" + range + "+miles/@" + lat + "," + lng;
 
-        return result;
+        } else {
+            url = "https://www.google.com/maps/search/restaurants+near+me+within+" + range + "+miles/@" + lat + "," + lng;
+        }
+
+        Map<String, DataModel> result = GoogleMapScraper.googlePlaceData(url);
+
+        logger.info("ended googlemap :-", System.currentTimeMillis());
+        return CompletableFuture.completedFuture(result);
     }
 
-    public static Map<String, DataModel> mapGroupOnData(String lat, String lng, String category, String range) {
+    @Async
+    public CompletableFuture<Map<String, DataModel>> getGroupOnData(String lat, String lng, String category, String range) {
         Map<String, DataModel> result = new HashMap<>();
+        logger.info("started groupon :-", System.currentTimeMillis());
 
         String category_key = "filters";
 
@@ -37,20 +57,26 @@ public class ExploreAllMapper {
         } else {
             result = GrouponApi.collectGroupOnData(getGrouponApiUrl(lat, lng, category_key, "category:".concat(category), range));
         }
+        logger.info("ended groupon :-", System.currentTimeMillis());
 
-        return result;
+        return CompletableFuture.completedFuture(result);
     }
 
-    public static Map<String, DataModel> getTicketMasterData(String lat, String lng, String range) {
+    @Async
+    public CompletableFuture<Map<String, DataModel>> getTicketMasterData(String lat, String lng, String range) {
+        logger.info("started ticketmaster :-", System.currentTimeMillis());
+
         Map<String, DataModel> result = new HashMap<>();
         String url = getTicketMasterUrl(lat, lng, range);
 
         result = TicketMasterApi.collectTicketMasterData(url);
-        return result;
+        logger.info("ended ticketmaster :-", System.currentTimeMillis());
+
+        return CompletableFuture.completedFuture(result);
     }
 
 
-    public static String getTicketMasterUrl(String lat, String lng, String range) {
+    public String getTicketMasterUrl(String lat, String lng, String range) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         Calendar c = Calendar.getInstance();
@@ -64,12 +90,12 @@ public class ExploreAllMapper {
                 .build(true).toString();
     }
 
-    public static String getGrouponApiUrl(String lat, String lng, String key, String category, String range) {
+    public String getGrouponApiUrl(String lat, String lng, String key, String category, String range) {
         return UriComponentsBuilder.fromHttpUrl(Constants.GROUPON_BASE_URL)
                 .queryParam("lat", lat)
                 .queryParam("lng", lng)
                 .queryParam("radius", range)
-                .queryParam("limit", 30)
+                .queryParam("limit", 20)
                 .queryParam(key, category)
                 .build(true).toString();
     }

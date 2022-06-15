@@ -1,10 +1,8 @@
 package com.explorer.places.explorerservice.models;
 
-import com.explorer.places.explorerservice.utils.CommonUtils;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class DataModel {
@@ -19,20 +17,19 @@ public class DataModel {
     private final String closeState;
     private final String description;
     private final String priceRange;
-    private final String latitude;
-    private final String longitude;
+    private final Double latitude;
+    private final Double longitude;
     private final String url;
-
     private final String source;
     private final String offerTitle;
     private final String value;
     private final String price;
     private final String discountPrice;
     private final String discount;
-
     private final String type;
     private final LocalDate date;
     private final String time;
+    private Double distance;
 
 
     public DataModel(String title, String address, String imageUrl, String[] category, String reviewStars, String noOfReviews, String openState, String closeState,
@@ -49,8 +46,8 @@ public class DataModel {
         this.closeState = closeState;
         this.description = description;
         this.priceRange = priceRange;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.latitude = Double.parseDouble(latitude);
+        this.longitude = Double.parseDouble(longitude);
         this.url = url;
         this.source = source;
         this.offerTitle = offerTitle;
@@ -59,13 +56,28 @@ public class DataModel {
         this.discountPrice = discountPrice;
         this.discount = discount;
         this.type = type;
-        this.date = LocalDate.parse(date);
+        this.date = date != null ? LocalDate.parse(date) : null;
         this.time = time;
     }
 
     public String getTitle() {
         return title;
     }
-    public LocalDate getDate() {return date;}
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setDistance(Double val) {
+        this.distance = val;
+    }
 
 }
