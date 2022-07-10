@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @RestController
 public class ExploreAll {
@@ -21,25 +23,25 @@ public class ExploreAll {
     private ExploreAllMapper exploreAllMapper;
 
     @GetMapping("/data/exploreAll")
-    Map<String, DataModel> exploreAllData(@RequestParam String lat,
-                                          @RequestParam String lng,
-                                          @RequestParam String category,
-                                          @RequestParam String range) throws ExecutionException, InterruptedException {
+    List<DataModel> exploreAllData(@RequestParam String lat,
+                                   @RequestParam String lng,
+                                   @RequestParam String category,
+                                   @RequestParam String range) throws ExecutionException, InterruptedException {
         Map<String, DataModel> result = new HashMap<>();
 
         CompletableFuture googleData = exploreAllMapper.getGoogleMapData(lat, lng, category, range);
-        CompletableFuture groupOnData = exploreAllMapper.getGroupOnData(lat, lng, category, range);
+        //CompletableFuture groupOnData = exploreAllMapper.getGroupOnData(lat, lng, category, range);
         CompletableFuture ticketMasterData = exploreAllMapper.getTicketMasterData(lat, lng, range);
 
         //this like wait for all async methods to finish.
-        CompletableFuture.allOf(googleData, groupOnData, ticketMasterData).join();
+        CompletableFuture.allOf(googleData, ticketMasterData).join();
 
         result.putAll((Map<? extends String, ? extends DataModel>) googleData.get());
-        result.putAll((Map<? extends String, ? extends DataModel>) groupOnData.get());
+        //result.putAll((Map<? extends String, ? extends DataModel>) groupOnData.get());
         result.putAll((Map<? extends String, ? extends DataModel>) ticketMasterData.get());
 
         CommonUtils.calculateDistance(Double.parseDouble(lat), Double.parseDouble(lng), result);
-        return result;
+        return result.values().stream().collect(Collectors.toList());
 
     }
 

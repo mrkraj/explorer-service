@@ -44,7 +44,7 @@ public class GrouponApi {
 
         title = merchant.getString("name");
         description = data.get("announcementTitle").toString();
-        image = data.getString("mediumImageUrl");
+        image = data.getString("largeImageUrl");
         url = data.getString("dealUrl");
         source = data.getString("type");
         open = options.getString("status");

@@ -6,11 +6,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class TicketMasterApi {
 
@@ -67,6 +69,14 @@ public class TicketMasterApi {
         if (startDate != null) {
             date = startDate.has("localDate") ? startDate.getString("localDate") : null;
             time = startDate.has("localTime") ? startDate.getString("localTime") : null;
+            try {
+                DateFormat f1 = new SimpleDateFormat("HH:mm:ss");
+                Date d = f1.parse(time);
+                DateFormat f2 = new SimpleDateFormat("h:mma");
+                time = f2.format(d).toLowerCase();
+            }catch (Exception e){
+                logger.error("Exception at formating time {} with error message- {}",time,e.getMessage());
+            }
         }
 
         if (priceData != null) {

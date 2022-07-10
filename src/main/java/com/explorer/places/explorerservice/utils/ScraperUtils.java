@@ -26,8 +26,9 @@ public class ScraperUtils {
         try {
             String title = web.findElement(By.className("qBF1Pd")) != null ? web.findElement(By.className("qBF1Pd")).getText() : null;
             String review = web.findElement(By.className("MW4etd")) != null ? web.findElement(By.className("MW4etd")).getText() : null;
-            String noOfReview = web.findElement(By.className("UY7F9")) != null ? web.findElement(By.className("UY7F9")).getText() : null;
+            String noOfReview = web.findElement(By.className("UY7F9")) != null ? web.findElement(By.className("UY7F9")).getText().replace(")","").replace("(","") : null;
             String image = web.findElement(By.className("FQ2IWe")).findElement(By.tagName("img")).getAttribute("src");
+            image = image.split("=")[0].concat("=w400-h200");
             Optional<WebElement> priceElement = web.findElements(By.cssSelector("span[aria-label]")).stream().filter(entry -> entry.getAttribute("aria-label").contains("Price:")).findFirst();
             String priceRange = priceElement.isPresent() ? priceElement.get().getText() : null;
 
