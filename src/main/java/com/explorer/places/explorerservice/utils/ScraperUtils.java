@@ -75,7 +75,7 @@ public class ScraperUtils {
                             entries = new DataModel(title, address, image, category, review, noOfReview, open,
                                     closing, description, priceRange, latLong[0], latLong[1], url,
                                     "google-map", null, null, null, null,
-                                    null, null, null, null);
+                                    null, null, null, null, null);
                         }
                     }
                 }

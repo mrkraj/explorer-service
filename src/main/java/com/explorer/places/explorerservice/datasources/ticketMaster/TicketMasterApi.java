@@ -38,56 +38,59 @@ public class TicketMasterApi {
 
     public static DataModel getTicketMasterDataModel(JSONObject data) {
         DataModel entries = null;
-        String title = null, description = null, priceRange = null, address = null, review = null,
-                noOfReview = null, open = null, closing = null, image = null, latitude = null, longitude = null, url = null,
-                source = null, offerTitle = null, value = null, price = null,
-                discountPrice = null, discount = null, type = null, date = null, time = null;
+        try{
+            String title = null, description = null, priceRange = null, address = null, review = null,
+                    noOfReview = null, open = null, closing = null, image = null, latitude = null, longitude = null, url = null,
+                    source = null, offerTitle = null, value = null, price = null,
+                    discountPrice = null, discount = null, type = null, date = null, time = null;
 
-        JSONObject venue = data.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0);
-        JSONObject tags = data.has("classifications") ? data.getJSONArray("classifications").getJSONObject(0) : null;
-        JSONObject startDate = data.has("dates") ? data.getJSONObject("dates").getJSONObject("start") : null;
-        JSONObject priceData = data.has("priceRanges") ? data.getJSONArray("priceRanges").getJSONObject(0) : null;
+            JSONObject venue = data.getJSONObject("_embedded").getJSONArray("venues").getJSONObject(0);
+            JSONObject tags = data.has("classifications") ? data.getJSONArray("classifications").getJSONObject(0) : null;
+            JSONObject startDate = data.has("dates") ? data.getJSONObject("dates").getJSONObject("start") : null;
+            JSONObject priceData = data.has("priceRanges") ? data.getJSONArray("priceRanges").getJSONObject(0) : null;
 
-        title = data.getString("name");
-        type = data.getString("type");
-        image = data.getJSONObject("_embedded").getJSONArray("attractions").getJSONObject(0).
-                getJSONArray("images").getJSONObject(0).getString("url");
-        url = data.getString("url");
-        source = "ticketMaster";
+            title = data.getString("name");
+            type = data.getString("type");
+            image = data.getJSONObject("_embedded").getJSONArray("attractions").getJSONObject(0).
+                    getJSONArray("images").getJSONObject(0).getString("url");
+            url = data.getString("url");
+            source = "ticketMaster";
 
-        if (venue != null) {
-            description = venue.getString("name");
+            if (venue != null) {
+                description = venue.getString("name");
 
-            address = venue.getJSONObject("address").getString("line1").concat(", ").
-                    concat(venue.getJSONObject("city").getString("name").concat(", ")).
-                    concat(venue.getJSONObject("state").getString("stateCode"));
+                address = venue.getJSONObject("address").getString("line1").concat(", ").
+                        concat(venue.getJSONObject("city").getString("name").concat(", ")).
+                        concat(venue.getJSONObject("state").getString("stateCode"));
 
-            latitude = venue.getJSONObject("location").getString("latitude");
-            longitude = venue.getJSONObject("location").getString("longitude");
-        }
-
-        if (startDate != null) {
-            date = startDate.has("localDate") ? startDate.getString("localDate") : null;
-            time = startDate.has("localTime") ? startDate.getString("localTime") : null;
-            try {
-                DateFormat f1 = new SimpleDateFormat("HH:mm:ss");
-                Date d = f1.parse(time);
-                DateFormat f2 = new SimpleDateFormat("h:mma");
-                time = f2.format(d).toLowerCase();
-            }catch (Exception e){
-                logger.error("Exception at formating time {} with error message- {}",time,e.getMessage());
+                latitude = venue.getJSONObject("location").getString("latitude");
+                longitude = venue.getJSONObject("location").getString("longitude");
             }
-        }
 
-        if (priceData != null) {
-            price = priceData.get("min").toString();
-        }
+            if (startDate != null) {
+                date = startDate.has("localDate") ? startDate.getString("localDate") : null;
+                time = startDate.has("localTime") ? startDate.getString("localTime") : null;
+                try {
+                    DateFormat f1 = new SimpleDateFormat("HH:mm:ss");
+                    Date d = f1.parse(time);
+                    DateFormat f2 = new SimpleDateFormat("h:mma");
+                    time = f2.format(d).toLowerCase();
+                }catch (Exception e){
+                    logger.error("Exception at formating time {} with error message- {}",time,e.getMessage());
+                }
+            }
 
-        if (latitude != null) {
-            entries = new DataModel(title, address, image, getTicketMasterCategory(tags), review, noOfReview, open, null, description,
-                    null, latitude, longitude, url, source, offerTitle, value, price, discountPrice, discount, type, date, time);
-        }
+            if (priceData != null) {
+                price = priceData.get("min").toString();
+            }
 
+            if (latitude != null) {
+                entries = new DataModel(title, address, image, getTicketMasterCategory(tags), review, noOfReview, open, null, description,
+                        null, latitude, longitude, url, source, offerTitle, value, price, discountPrice, discount, type, date, time,null);
+            }
+        }catch (Exception e){
+            logger.error("Exception at creating ticketmaster data model");
+        }
         return entries;
     }
 

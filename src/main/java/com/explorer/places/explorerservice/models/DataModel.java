@@ -35,7 +35,7 @@ public class DataModel {
     public DataModel(String title, String address, String imageUrl, String[] category, String reviewStars, String noOfReviews, String openState, String closeState,
                      String description, String priceRange, String latitude, String longitude, String url,
                      String source, String offerTitle, String value, String price,
-                     String discountPrice, String discount, String type, String date, String time) {
+                     String discountPrice, String discount, String type, String date, String time, Double distance) {
         this.title = title;
         this.address = address;
         this.imageUrl = imageUrl;
@@ -46,8 +46,8 @@ public class DataModel {
         this.closeState = closeState;
         this.description = description;
         this.priceRange = priceRange;
-        this.latitude = Double.parseDouble(latitude);
-        this.longitude = Double.parseDouble(longitude);
+        this.latitude = latitude != null ? Double.parseDouble(latitude) : null;
+        this.longitude = longitude != null ? Double.parseDouble(longitude) : null;
         this.url = url;
         this.source = source;
         this.offerTitle = offerTitle;
@@ -58,6 +58,7 @@ public class DataModel {
         this.type = type;
         this.date = date != null ? LocalDate.parse(date) : null;
         this.time = time;
+        this.distance = distance;
     }
 
     public String getTitle() {

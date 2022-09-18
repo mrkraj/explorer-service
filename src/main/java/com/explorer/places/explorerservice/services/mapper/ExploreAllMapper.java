@@ -47,15 +47,9 @@ public class ExploreAllMapper {
         String category_key = "filters";
 
         if (category.contains("things-to-do")) {
-            result = GrouponApi.collectGroupOnData(getGrouponApiUrl(lat, lng, category_key, "category:".concat(category), range));
-
-            Map<String, DataModel> getawayResult = GrouponApi.collectGroupOnData(getGrouponApiUrl(lat, lng, "categories", category, range));
-
-            for (Map.Entry<String, DataModel> entry : getawayResult.entrySet()) {
-                result.put(entry.getKey(), entry.getValue());
-            }
+            result = GrouponApi.collectGroupOnData(lat, lng, "things-to-do", range);
         } else {
-            result = GrouponApi.collectGroupOnData(getGrouponApiUrl(lat, lng, category_key, "category:".concat(category), range));
+            result = GrouponApi.collectGroupOnData(lat, lng,"food-and-drink", range);
         }
         logger.info("ended groupon :-", System.currentTimeMillis());
 
@@ -87,16 +81,6 @@ public class ExploreAllMapper {
                 .queryParam("latlong", lat + "," + lng)
                 .queryParam("radius", range)
                 .queryParam("endDateTime", sdf.format(c.getTime()))
-                .build(true).toString();
-    }
-
-    public String getGrouponApiUrl(String lat, String lng, String key, String category, String range) {
-        return UriComponentsBuilder.fromHttpUrl(Constants.GROUPON_BASE_URL)
-                .queryParam("lat", lat)
-                .queryParam("lng", lng)
-                .queryParam("radius", range)
-                .queryParam("limit", 20)
-                .queryParam(key, category)
                 .build(true).toString();
     }
 }

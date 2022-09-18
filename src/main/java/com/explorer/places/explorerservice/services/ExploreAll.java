@@ -30,14 +30,14 @@ public class ExploreAll {
         Map<String, DataModel> result = new HashMap<>();
 
         CompletableFuture googleData = exploreAllMapper.getGoogleMapData(lat, lng, category, range);
-        //CompletableFuture groupOnData = exploreAllMapper.getGroupOnData(lat, lng, category, range);
+        CompletableFuture groupOnData = exploreAllMapper.getGroupOnData(lat, lng, category, range);
         CompletableFuture ticketMasterData = exploreAllMapper.getTicketMasterData(lat, lng, range);
 
         //this like wait for all async methods to finish.
         CompletableFuture.allOf(googleData, ticketMasterData).join();
 
         result.putAll((Map<? extends String, ? extends DataModel>) googleData.get());
-        //result.putAll((Map<? extends String, ? extends DataModel>) groupOnData.get());
+        result.putAll((Map<? extends String, ? extends DataModel>) groupOnData.get());
         result.putAll((Map<? extends String, ? extends DataModel>) ticketMasterData.get());
 
         CommonUtils.calculateDistance(Double.parseDouble(lat), Double.parseDouble(lng), result);
