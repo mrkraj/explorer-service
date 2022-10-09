@@ -36,7 +36,7 @@ public class ExploreAll {
         //this like wait for all async methods to finish.
         CompletableFuture.allOf(googleData, ticketMasterData).join();
 
-        result.putAll((Map<? extends String, ? extends DataModel>) googleData.get());
+       // result.putAll((Map<? extends String, ? extends DataModel>) googleData.get());
         result.putAll((Map<? extends String, ? extends DataModel>) groupOnData.get());
         result.putAll((Map<? extends String, ? extends DataModel>) ticketMasterData.get());
 
