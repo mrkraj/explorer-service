@@ -1,5 +1,6 @@
 package com.explorer.places.explorerservice.services.mapper;
 
+import com.explorer.places.explorerservice.datasources.googlemap.GoogleMapData;
 import com.explorer.places.explorerservice.datasources.googlemap.GoogleMapScraper;
 import com.explorer.places.explorerservice.datasources.groupon.GrouponApi;
 import com.explorer.places.explorerservice.datasources.ticketMaster.TicketMasterApi;
@@ -33,7 +34,7 @@ public class ExploreAllMapper {
             url = "https://www.google.com/maps/search/restaurants+near+me+within+" + range + "+miles/@" + lat + "," + lng;
         }
 
-        Map<String, DataModel> result = GoogleMapScraper.googlePlaceData(url);
+        Map<String, DataModel> result = GoogleMapData.googlePlaceData(url);
 
         logger.info("ended googlemap :-", System.currentTimeMillis());
         return CompletableFuture.completedFuture(result);
