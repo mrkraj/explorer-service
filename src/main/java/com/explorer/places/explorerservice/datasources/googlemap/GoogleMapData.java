@@ -39,8 +39,12 @@ public class GoogleMapData {
 
                     String title = itemJson.get(11).toString();
                     String address = itemJson.get(39).toString();
-                    String imageUrl = itemJson.getJSONArray(37).getJSONArray(0).getJSONArray(0).getJSONArray(6).get(0).toString();
 
+                    //Image URL
+                    String imageUrl = itemJson.getJSONArray(37).getJSONArray(0).getJSONArray(0).getJSONArray(6).get(0).toString();
+                    if (imageUrl.contains("lh5.googleusercontent.com") && imageUrl.contains("=")){
+                        imageUrl = imageUrl.substring(0, imageUrl.indexOf("=")+1).concat("w300-h200-k-no");
+                    }
                     //Category
                     String[] category = null;
                     if (!itemJson.isNull(13)){
