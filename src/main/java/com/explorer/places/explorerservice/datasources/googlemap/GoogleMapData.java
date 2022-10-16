@@ -17,6 +17,7 @@ public class GoogleMapData {
     static final Logger logger = LoggerFactory.getLogger(GoogleMapData.class);
 
     public static Map<String, DataModel> googlePlaceData(String url) {
+        logger.info("Google URL-", url);
         return extractGoogleJson(url);
     }
 

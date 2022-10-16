@@ -1,7 +1,6 @@
 package com.explorer.places.explorerservice.services.mapper;
 
 import com.explorer.places.explorerservice.datasources.googlemap.GoogleMapData;
-import com.explorer.places.explorerservice.datasources.googlemap.GoogleMapScraper;
 import com.explorer.places.explorerservice.datasources.groupon.GrouponApi;
 import com.explorer.places.explorerservice.datasources.ticketMaster.TicketMasterApi;
 import com.explorer.places.explorerservice.models.DataModel;
@@ -28,10 +27,10 @@ public class ExploreAllMapper {
         logger.info("started googlemap:-", System.currentTimeMillis());
         String url = "";
         if (category.contains("things-to-do")) {
-            url = "https://www.google.com/maps/search/things+to+do+near+me+within+" + range + "+miles/@" + lat + "," + lng;
+            url = "https://www.google.com/maps/search/things+to+do/@" + lat + "," + lng;
 
         } else {
-            url = "https://www.google.com/maps/search/restaurants+near+me+within+" + range + "+miles/@" + lat + "," + lng;
+            url = "https://www.google.com/maps/search/restaurants/@" + lat + "," + lng;
         }
 
         Map<String, DataModel> result = GoogleMapData.googlePlaceData(url);
