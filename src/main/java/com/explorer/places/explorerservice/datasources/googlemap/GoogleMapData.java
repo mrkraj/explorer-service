@@ -42,9 +42,12 @@ public class GoogleMapData {
                     String address = itemJson.get(39).toString();
 
                     //Image URL
-                    String imageUrl = itemJson.getJSONArray(37).getJSONArray(0).getJSONArray(0).getJSONArray(6).get(0).toString();
-                    if (imageUrl.contains("lh5.googleusercontent.com") && imageUrl.contains("=")){
-                        imageUrl = imageUrl.substring(0, imageUrl.indexOf("=")+1).concat("w300-h200-k-no");
+                    String imageUrl = null;
+                    if(!itemJson.isNull(37) && !itemJson.getJSONArray(37).isNull(0)) {
+                        imageUrl = itemJson.getJSONArray(37).getJSONArray(0).getJSONArray(0).getJSONArray(6).get(0).toString();
+                        if (imageUrl.contains("lh5.googleusercontent.com") && imageUrl.contains("=")) {
+                            imageUrl = imageUrl.substring(0, imageUrl.indexOf("=") + 1).concat("w300-h200-k-no");
+                        }
                     }
                     //Category
                     String[] category = null;
@@ -88,7 +91,7 @@ public class GoogleMapData {
                                 itemJson.get(10).toString() + "!8m2!3d" + latitude + "!4d" + longitude;
                     }
 
-                    if (title != null && address != null && imageUrl != null && latitude != null && longitude != null) {
+                    if (title != null && address != null && latitude != null && longitude != null) {
                         result.put(title,new DataModel(title, address, imageUrl, category, reviewStars, noOfReviews, openState,
                                 null, description, priceRange, latitude, longitude, gotoUrl,
                                 "google-map", null, null, null, null,
