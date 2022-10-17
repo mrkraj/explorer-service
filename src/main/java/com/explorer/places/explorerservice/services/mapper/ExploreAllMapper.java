@@ -27,10 +27,10 @@ public class ExploreAllMapper {
         logger.info("started googlemap:-", System.currentTimeMillis());
         String url = "";
         if (category.contains("things-to-do")) {
-            url = "https://www.google.com/maps/search/things+to+do/@" + lat + "," + lng;
+            url = "https://www.google.com/maps/search/things+to+do/@" + lat + "," + lng + ",12z";
 
         } else {
-            url = "https://www.google.com/maps/search/restaurants/@" + lat + "," + lng;
+            url = "https://www.google.com/maps/search/restaurants/@" + lat + "," + lng + ",12z";
         }
 
         Map<String, DataModel> result = GoogleMapData.googlePlaceData(url);
