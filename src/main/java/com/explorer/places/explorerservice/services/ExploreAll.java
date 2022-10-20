@@ -31,7 +31,7 @@ public class ExploreAll {
 
         CompletableFuture googleData = exploreAllMapper.getGoogleMapData(lat, lng, category, range);
         CompletableFuture groupOnData = exploreAllMapper.getGroupOnData(lat, lng, category, range);
-        CompletableFuture ticketMasterData = exploreAllMapper.getTicketMasterData(lat, lng, range);
+        CompletableFuture ticketMasterData = exploreAllMapper.getTicketMasterData(lat, lng, category, range);
 
         //this like wait for all async methods to finish.
         CompletableFuture.allOf(googleData, ticketMasterData).join();
@@ -75,7 +75,7 @@ public class ExploreAll {
                                            @RequestParam String category,
                                            @RequestParam String range) throws ExecutionException, InterruptedException {
 
-        CompletableFuture ticketMasterData = exploreAllMapper.getTicketMasterData(lat, lng, range);
+        CompletableFuture ticketMasterData = exploreAllMapper.getTicketMasterData(lat, lng,category, range);
         CommonUtils.calculateDistance(Double.parseDouble(lat), Double.parseDouble(lng), (Map<String, DataModel>) ticketMasterData.get());
         return (Map<String, DataModel>) ticketMasterData.get();
     }

@@ -46,7 +46,7 @@ public class GoogleMapData {
                     if(!itemJson.isNull(37) && !itemJson.getJSONArray(37).isNull(0)) {
                         imageUrl = itemJson.getJSONArray(37).getJSONArray(0).getJSONArray(0).getJSONArray(6).get(0).toString();
                         if (imageUrl.contains("lh5.googleusercontent.com") && imageUrl.contains("=")) {
-                            imageUrl = imageUrl.substring(0, imageUrl.indexOf("=") + 1).concat("w300-h200-k-no");
+                            imageUrl = imageUrl.substring(0, imageUrl.indexOf("=") + 1).concat("w400-h300-k-no");
                         }
                     }
                     //Category

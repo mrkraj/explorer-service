@@ -27,10 +27,10 @@ public class ExploreAllMapper {
         logger.info("started googlemap:-", System.currentTimeMillis());
         String url = "";
         if (category.contains("things-to-do")) {
-            url = "https://www.google.com/maps/search/things+to+do/@" + lat + "," + lng + ",12z";
+            url = "https://www.google.com/maps/search/things+to+do/@" + lat + "," + lng + ",13z";
 
         } else {
-            url = "https://www.google.com/maps/search/restaurants/@" + lat + "," + lng + ",12z";
+            url = "https://www.google.com/maps/search/restaurants/@" + lat + "," + lng + ",13z";
         }
 
         Map<String, DataModel> result = GoogleMapData.googlePlaceData(url);
@@ -57,15 +57,15 @@ public class ExploreAllMapper {
     }
 
     @Async
-    public CompletableFuture<Map<String, DataModel>> getTicketMasterData(String lat, String lng, String range) {
+    public CompletableFuture<Map<String, DataModel>> getTicketMasterData(String lat, String lng, String category, String range) {
         logger.info("started ticketmaster :-", System.currentTimeMillis());
-
         Map<String, DataModel> result = new HashMap<>();
-        String url = getTicketMasterUrl(lat, lng, range);
-
-        result = TicketMasterApi.collectTicketMasterData(url);
-        logger.info("ended ticketmaster :-", System.currentTimeMillis());
-
+        if (category.contains("things-to-do")) {
+            result = new HashMap<>();
+            String url = getTicketMasterUrl(lat, lng, range);
+            result = TicketMasterApi.collectTicketMasterData(url);
+            logger.info("ended ticketmaster :-", System.currentTimeMillis());
+        }
         return CompletableFuture.completedFuture(result);
     }
 
